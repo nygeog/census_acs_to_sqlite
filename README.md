@@ -5,7 +5,7 @@ US Census Data (ACS) 5-year data to SQLite database
 1. Build a 11-year database called `data/census_variables.db` using `tools/table_shell.py`
 
 ```python
-from tools.table_shells import CreateTableShellDatabase
+from table_shells import CreateTableShellDatabase
 
 CreateTableShellDatabase('sqlite:///../data/census_variables.db')
 ```
