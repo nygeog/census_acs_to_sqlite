@@ -7,12 +7,12 @@ US Census Data (ACS) 5-year data to SQLite database or CSV file.
 ### 1. Get your own Census API Key
 https://api.census.gov/data/key_signup.html
 
-### 2. Build a 11-year database called `data/census_variables.db` using `tools/table_shell.py`
+### 2. Build a 11-year database of all the available ACS variables called `data/census_variables.db` using `tools/table_shell.py`
 
 ```python
 from table_shells import CreateTableShellDatabase
 
-CreateTableShellDatabase('sqlite:///../data/census_variables.db')
+CreateTableShellDatabase(db_name='sqlite:///../data/census_variables.db')
 ```
 
 ### 3. Get any census data table and write to `.csv` or to `.sqlite` database file.  
@@ -25,7 +25,11 @@ census_api_key = '{your_census_api_key}'
 # https://api.census.gov/data/key_signup.html
 
 CensusTableRequest(
-    census_api_key, '2019', 'county', 'B19013', 
-    'data/output', ['csv', 'sqlite'])
+    census_api_key, 
+    year='2019', 
+    geography='county', 
+    table_id='B19013', 
+    out_dir='data/output', 
+    file_formats=['csv', 'sqlite'])
 ```
     

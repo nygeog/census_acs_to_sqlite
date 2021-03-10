@@ -12,15 +12,15 @@ pd.set_option('display.width', 1000)
 
 class CensusTableRequest:
     def __init__(
-            self, api_key, year, geography, table_id, out_dir, file_format=None
+            self, api_key, year, geography, table_id, out_dir, file_formats=None
     ):
         self.api_key = api_key
         self.year = year
         self.geography = geography
         self.table_id = table_id
-        if file_format is None:
-            file_format = ['sqlite']
-        self.file_format = file_format
+        if file_formats is None:
+            file_formats = ['sqlite']
+        self.file_formats = file_formats
         self.out_dir = out_dir
 
         vars_db_con = sqlite3.connect("data/census_variables.db")
@@ -44,13 +44,13 @@ class CensusTableRequest:
 
         table_name = f'{self.year}_5yr_acs_{self.geography}'
 
-        if 'sqlite' in file_format:
+        if 'sqlite' in file_formats:
             engine = create_engine(
                 f'sqlite:///output/{table_name}.db', echo=False)
             census_data.df.to_sql(
                 f'{self.table_id}', con=engine, if_exists='replace')
 
-        if 'csv' in file_format:
+        if 'csv' in file_formats:
             census_data.write_data()
 
 
