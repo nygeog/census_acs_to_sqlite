@@ -4,10 +4,6 @@ import numpy as np
 import glob
 import os
 
-pd.set_option('display.max_rows', 500)
-pd.set_option('display.max_columns', 500)
-pd.set_option('display.width', 1000)
-
 
 class CreateTableShellDatabase:
     def __init__(self, db_name, table_shells_dir):
@@ -37,44 +33,25 @@ class CreateTableShellDatabase:
 
             df = df[['tableid', 'uniqueid', 'stub', 'year']]
 
-            print(df.head(10))
-
-            df.to_sql(f'table_shell_{year}', con=engine, if_exists='replace')
-
             df_tables = df[df['uniqueid'].isnull()]
 
             df_tables = df_tables.groupby(['tableid', 'year'])['stub'].apply(
                 ' - '.join).reset_index()
 
-            df_tables.to_sql(
-                f'table_shell_{year}_tables', con=engine, if_exists='replace')
             tables_df_list.append(df_tables)
 
             df_variables = df[df['uniqueid'].notnull()]
 
-            df_variables.to_sql(
-                f'table_shell_{year}_variables', con=engine,
-                if_exists='replace')
             variables_df_list.append(df_variables)
-
-            # each year has slightly different fields
-            # 2019 looks like:
-            # Table ID	Line	UniqueID	Stub	Data Release
-            # 2013 looks like:
-            # "Table ID"	Line	UniqueID	Stub	 Data Release
-            # 2009 looks like:
-            # "Table ID"	Line	Unique ID	Stub
 
         df_variables = pd.concat(variables_df_list)
         df_tables = pd.concat(tables_df_list)
 
         df_variables.to_sql(
-            f'table_shell_variables', con=engine,
-            if_exists='replace')
+            f'census_variables', con=engine, if_exists='replace')
 
         df_tables.to_sql(
-            f'table_shell_tables', con=engine,
-            if_exists='replace')
+            f'census_tables', con=engine, if_exists='replace')
 
 
 if __name__ == '__main__':
