@@ -6,7 +6,7 @@ import os
 
 
 class CreateTableShellDatabase:
-    def __init__(self, db_name, table_shells_dir):
+    def __init__(self, db_name, table_shells_dir='../data/table_shells'):
         engine = create_engine(db_name, echo=False)
 
         filenames = glob.glob(f'{table_shells_dir}/*.xls*')
@@ -56,4 +56,4 @@ class CreateTableShellDatabase:
 
 if __name__ == '__main__':
     CreateTableShellDatabase(
-        'sqlite:///../data/census_variables.db', '../data/table_shells')
+        'sqlite:///../data/census_variables.db')
