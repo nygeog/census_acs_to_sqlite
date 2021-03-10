@@ -1,10 +1,13 @@
 # Census ACS Data to SQLite (or CSV)
 
-### Purpose: to Census data super easily. 
+### Purpose: to get US Census ACS 5-year data super easily. 
 
-US Census Data (ACS) 5-year data to SQLite database
+US Census Data (ACS) 5-year data to SQLite database or CSV file.
 
-### 1. Build a 11-year database called `data/census_variables.db` using `tools/table_shell.py`
+### 1. Get your own Census API Key
+https://api.census.gov/data/key_signup.html
+
+### 2. Build a 11-year database called `data/census_variables.db` using `tools/table_shell.py`
 
 ```python
 from table_shells import CreateTableShellDatabase
@@ -12,7 +15,7 @@ from table_shells import CreateTableShellDatabase
 CreateTableShellDatabase('sqlite:///../data/census_variables.db')
 ```
 
-###  2. Get any census data table and write to `.csv` or to `.sqlite` database file.  
+### 3. Get any census data table and write to `.csv` or to `.sqlite` database file.  
 
 
 ```python
