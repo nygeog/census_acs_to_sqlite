@@ -46,7 +46,7 @@ class CensusTableRequest:
 
         if 'sqlite' in file_format:
             engine = create_engine(
-                f'sqlite:///test/{table_name}.db', echo=False)
+                f'sqlite:///output/{table_name}.db', echo=False)
             census_data.df.to_sql(
                 f'{self.table_id}', con=engine, if_exists='replace')
 
@@ -58,8 +58,9 @@ if __name__ == '__main__':
     config = read_json('config.json')
 
     for census_year in [2015, 2016, 2017, 2018, 2019]:
-        for census_geog in ['county']:  #, 'tract']:
+        for census_geog in ['county']:  # 'tract'
             for topic in ['B19013', 'B25033']:
                 CensusTableRequest(
-                    config['api_key'], census_year, census_geog, topic, 'test',
+                    config['api_key'], census_year, census_geog, topic,
+                    'data/output',
                     ['csv', 'sqlite'])

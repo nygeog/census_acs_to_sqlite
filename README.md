@@ -21,6 +21,6 @@ census_api_key = '{your_census_api_key}'
 
 CensusTableRequest(
     census_api_key, '2019', 'county', 'B19013', 
-    'data', ['csv', 'sqlite'])
+    'data/output', ['csv', 'sqlite'])
 ```
     
