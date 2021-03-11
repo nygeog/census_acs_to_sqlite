@@ -6,7 +6,7 @@ import os
 
 
 class CreateTableShellDatabase:
-    def __init__(self, db_name, table_shells_dir='../data/table_shells'):
+    def __init__(self, db_name, table_shells_dir='data/table_shells'):
         engine = create_engine(db_name, echo=False)
 
         filenames = glob.glob(f'{table_shells_dir}/*.xls*')
@@ -15,12 +15,15 @@ class CreateTableShellDatabase:
 
         for f in filenames:
             year = os.path.basename(f)[3:7]
+            print(year)
             if year == '2013':  # sheet name exception for this year
-                df = pd.read_excel(f, sheet_name='Sheet2')
+                df = pd.read_excel(f, sheet_name='Sheet2', engine='openpyxl')
             elif year == '2014':  # sheet name exception for this year
-                df = pd.read_excel(f, sheet_name='Sheet4')
-            else:
+                df = pd.read_excel(f, sheet_name='Sheet4', engine='openpyxl')
+            elif int(year) < 2014:
                 df = pd.read_excel(f)
+            else:
+                df = pd.read_excel(f, engine='openpyxl')
 
             df.columns = [
                 i.replace('\n', '_').replace(' ', '').replace('_', '').lower()
@@ -56,4 +59,4 @@ class CreateTableShellDatabase:
 
 if __name__ == '__main__':
     CreateTableShellDatabase(
-        'sqlite:///../data/census_variables.db')
+        'sqlite:///data/census_variables.db')
