@@ -12,7 +12,7 @@ https://api.census.gov/data/key_signup.html
 ```python
 from table_shells import CreateTableShellDatabase
 
-CreateTableShellDatabase(db_name='sqlite:///../data/census_variables.db')
+CreateTableShellDatabase(db_name='sqlite:///data/census_variables.db')
 ```
 
 #### 3. Get any census data table and write to .csv or to .sqlite database file.  
@@ -30,6 +30,6 @@ CensusTableRequest(
     geography='county', 
     table_id='B19013', 
     out_dir='data/output', 
-    file_formats=['csv', 'sqlite'])
+    file_formats=['sqlite', 'csv'])
 ```
     

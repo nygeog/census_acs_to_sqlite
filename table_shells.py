@@ -34,7 +34,14 @@ class CreateTableShellDatabase:
 
             df['year'] = year
 
-            df = df[['tableid', 'uniqueid', 'stub', 'year']]
+            df['uniqueid_api'] = f"{df['uniqueid']}E"
+            df['uniqueid_api'] = np.where(
+                df['uniqueid_api'].str.contains('_'),
+                df['uniqueid_api'],
+                df['uniqueid_api'].str[:6] + '_' + df['uniqueid_api'].str[6:]
+            )  # ToDo - test that this works.
+
+            df = df[['tableid', 'uniqueid', 'uniqueid_api', 'stub', 'year']]
 
             df_tables = df[df['uniqueid'].isnull()]
 

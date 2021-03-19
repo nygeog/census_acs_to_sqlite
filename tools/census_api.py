@@ -5,6 +5,7 @@ from tools.helpers import create_directory, split_list_to_chunks
 from tools.helpers import dict_to_json
 from tools.census_api_data_dictionary import generate_census_variable_definition
 from functools import reduce
+import time
 
 
 class CensusACS5Year:
@@ -100,8 +101,8 @@ class CensusACS5Year:
         for variable in self.vars:
             self.vars_data[variable] = generate_census_variable_definition(
                 variable, self.year)
-            # ToDo - maybe add time.sleep(0.1) or something to give the endpoint
-            #  a rest
+
+            time.sleep(0.5)
 
     def write_data_dictionary(self):
         dict_to_json(self.vars_data, f'{self.out_dir}/acs_{self.geog_str}.json')
