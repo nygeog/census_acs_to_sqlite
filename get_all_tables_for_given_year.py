@@ -10,7 +10,7 @@ if __name__ == '__main__':
     not_collected = {}
 
     # 2015, 2016, 2017,
-    for census_year in [2018]:  # 2019 done
+    for census_year in [2013, 2014, 2015, 2016, 2017]:  # 2019 done
         for census_geog in ['zip code tabulation area']:  # 'state'
 
             not_collected[census_year] = {}
